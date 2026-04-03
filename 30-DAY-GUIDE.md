@@ -22,23 +22,34 @@ Open Terminal (Cmd+Space, type "Terminal") and run each line:
 # 2. Install Node.js (JavaScript runtime)
 brew install node
 
-# 3. Install Claude Code (your AI coding partner)
+# 3. Install Claude Code (your AI coding partner — this IS your IDE)
 brew install claude-code
 
-# 4. Install VS Code (optional — nice for browsing files)
-brew install --cask visual-studio-code
-
-# 5. Verify
+# 4. Verify
 node --version     # v20+
 npm --version      # 10+
 git --version      # 2.x
 claude --version   # Claude Code installed
 ```
 
-### Accounts You Need
-1. **Claude Pro** ($20/mo) — https://claude.ai
-2. **Anthropic API key** (free $5 credit) — https://console.anthropic.com — for AI features in the app
-3. **GitHub** (free) — https://github.com
+### Sign Into Claude Code
+
+Claude Code is your entire development environment. No VS Code, no other editor needed.
+
+Sign in using your ForIT Microsoft account:
+```bash
+claude
+```
+When prompted, choose **"Sign in with SSO"** and use your **C.Thomas@forit.io** Microsoft account. ForIT has a team subscription — you don't need to pay for anything separately.
+
+### Anthropic API Key (for AI features in the app)
+The app itself calls the Claude API to analyze safety reports. You'll need an API key:
+1. Go to https://console.anthropic.com
+2. Sign up (free $5 credit)
+3. Create an API key — you'll add it to the app in Week 2
+
+### GitHub Account
+Sign up at https://github.com (free) — this is where your code lives.
 
 ### Clone This Project
 ```bash
