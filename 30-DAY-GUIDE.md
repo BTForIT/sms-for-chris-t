@@ -1,31 +1,29 @@
 # 30-Day Vibe Coding Guide with Claude Code
 
-**Building an Aviation Safety Management System from Zero**
+**Building an AI-Powered Aviation Safety Management System from Zero**
 
-This guide takes you from never having coded to shipping a real web application in 30 days. You won't memorize syntax or study textbooks - you'll describe what you want in plain English and Claude Code will write it. Your job is to think clearly about *what* the app should do.
+You've never coded. In 30 days, you'll ship a real web app that uses AI to ingest safety reports, diagnose root causes, and predict trends. You won't memorize syntax - you'll describe what you want and Claude Code writes it.
 
 ---
 
 ## Prerequisites (Day 0 - Setup)
 
-Before Day 1, get these installed. Ask Ben for help if you get stuck.
+Get these installed. Call Ben if stuck.
 
 ### Install These
-1. **Claude Code** - https://claude.ai/claude-code (get a Pro subscription - $20/mo)
-   - Mac: `brew install claude-code` (install Homebrew first if needed: https://brew.sh)
-   - Or download from https://claude.ai/claude-code
-2. **Node.js** - https://nodejs.org (download the LTS version, click through installer)
-3. **VS Code** - https://code.visualstudio.com (your code editor - has Claude Code extension too)
-4. **Git** - Comes with Mac. Verify: open Terminal, type `git --version`
+1. **Claude Code** - `brew install claude-code` (install Homebrew first: https://brew.sh)
+2. **Node.js** - https://nodejs.org (LTS version, click through installer)
+3. **VS Code** - https://code.visualstudio.com (code editor with Claude Code extension)
+4. **Git** - Comes with Mac. Verify: `git --version`
 5. **GitHub account** - https://github.com (free)
+6. **Anthropic API key** - https://console.anthropic.com (for the AI features - $5 credit free)
 
-### Verify Everything Works
-Open your Terminal app and type:
+### Verify
 ```bash
-node --version    # Should show v20 or v22
-npm --version     # Should show 10+
-git --version     # Should show 2.x
-claude --version  # Should show Claude Code version
+node --version    # v20 or v22
+npm --version     # 10+
+git --version     # 2.x
+claude --version  # Claude Code installed
 ```
 
 ### Clone This Repo
@@ -37,288 +35,216 @@ cd sms-for-christ
 
 ---
 
-## Week 1: Foundation (Days 1-7)
+## Week 1: The Shell (Days 1-7)
 
-**Goal:** Get a working Next.js app with pages you can click through.
+**Goal:** A working app with navigation, a dashboard, and a reporting form.
 
-### Day 1: Your First App
-Open Terminal in the project folder and type:
+### Day 1: Create the App
 ```bash
 claude
 ```
-Then tell Claude:
-> "Create a new Next.js 14 app in this directory with Tailwind CSS and TypeScript. Use the App Router. Make the home page show 'SMS for Christ - Safety Management System' with a clean, professional header."
+> "Create a Next.js 14 app with Tailwind CSS and TypeScript using the App Router. Professional aviation look - dark navy sidebar, clean white content area. Home page shows 'SMS for Christ - Safety Management System' with the tagline 'AI-Powered Safety Intelligence'."
 
-**What you'll learn:** Claude creates an entire project structure. Look at the files it made - don't worry about understanding every line yet.
+Run `npm run dev` and open http://localhost:3000.
 
-**Homework:** Run `npm run dev`, open http://localhost:3000 in your browser. You should see your app.
+### Day 2: Layout & Navigation
+> "Add a sidebar with: Dashboard, Report Safety Issue, All Reports, Risk Matrix, AI Insights. Header shows organization name. Sidebar collapses on mobile to a hamburger menu. Active page highlighted in the sidebar."
 
-### Day 2: Navigation & Layout
-Tell Claude:
-> "Add a sidebar navigation with these links: Dashboard, Report Hazard, Occurrences, Risk Register, Investigations, Documents. Use a clean layout with a header that says the company name. Make the sidebar collapsible on mobile."
+### Day 3: Dashboard
+> "Build the Dashboard. Top row: 4 stat cards - Open Reports, Pending Investigations, Overdue Actions, AI Safety Score. Below: a Recent Reports feed showing the last 10 entries with severity color dots. Below that: a Risk Distribution chart (bar chart of reports by risk level). Use mock data."
 
-**What you'll learn:** Layout components, responsive design. Claude handles all the CSS.
+### Day 4: Report Safety Issue - The Freeform Input
+This is the killer feature. Not a form with 20 fields - a single text box.
 
-### Day 3: The Dashboard Page
-Tell Claude:
-> "Build the Dashboard page. Show 4 stat cards at the top: Open Hazards (count), Open Investigations (count), Overdue Actions (count), and Safety Score (percentage). Below that, show a recent activity feed. Use placeholder/mock data for now - we'll connect real data later."
+> "Create the Report Safety Issue page. The main element is a large text area with placeholder text: 'Describe what happened... (e.g., During pushback of flight 402, the tow bar disconnected from the nose gear. Aircraft rolled back 2 feet before chocks were applied. No damage, no injuries. Ramp was wet from rain.)' Below the text area, a Submit button. For now, clicking submit just shows a success toast. We'll add the AI processing next week."
 
-**What you'll learn:** Component composition, state management basics.
+### Day 5: The Traditional Form (Below the AI Input)
+> "Below the freeform text area, add a collapsible section called 'Manual Entry (Optional)' that shows a traditional form: Date, Location, Aircraft (reg/type), Category dropdown (Flight Ops, Ground Ops, Maintenance, ATC, Weather, Human Factors, Organizational, Security, Other), Severity (Negligible/Minor/Major/Hazardous/Catastrophic), Likelihood (Extremely Improbable/Improbable/Remote/Occasional/Frequent). Anonymous checkbox. The idea is: AI fills this from the freeform text, but the user can override."
 
-### Day 4: Hazard Report Form
-Tell Claude:
-> "Create a 'Report Hazard' page with a form. Fields: Title, Description (large text area), Date Observed, Location, Category (dropdown: Flight Ops, Ground Ops, Maintenance, ATC, Weather, Other), Severity (dropdown: Negligible, Minor, Major, Hazardous, Catastrophic), Likelihood (dropdown: Extremely Improbable, Improbable, Remote, Occasional, Frequent). Add a checkbox for 'Submit Anonymously'. Include a Submit button that shows a success message."
+### Day 6: Risk Matrix Visualization
+> "Create the Risk Matrix page. Show an interactive 5x5 grid - Severity on X axis, Likelihood on Y axis. Color-code cells: green (Acceptable), yellow (Tolerable), orange (Undesirable), red (Intolerable). Clicking a cell shows how many reports are at that risk level. Add the ICAO standard legend below."
 
-**What you'll learn:** Forms, dropdowns, form validation, user feedback.
-
-### Day 5: Risk Assessment Matrix
-Tell Claude:
-> "Add a 5x5 Risk Assessment Matrix that automatically calculates when the user selects Severity and Likelihood on the hazard form. The matrix should follow ICAO standards: green (Acceptable), yellow (Tolerable with mitigation), orange (Undesirable - needs senior management review), red (Intolerable - immediate action required). Show the risk level visually on the form."
-
-**What you'll learn:** Computed values, conditional rendering, color-coded UI.
-
-### Day 6: Occurrence List Page
-Tell Claude:
-> "Create an Occurrences page that shows a table of all reported hazards/occurrences. Columns: Date, Title, Category, Risk Level (color-coded), Status (Open/Under Review/Closed), Assigned To. Add filters at the top for status, category, and date range. Use mock data - make 10 sample entries with realistic aviation safety scenarios."
-
-**What you'll learn:** Tables, filtering, sorting, mock data patterns.
-
-### Day 7: Review & Polish
-Tell Claude:
-> "Review all the pages we've built. Fix any visual inconsistencies. Make sure the color scheme is professional (dark blue/navy primary, with safety-standard colors for risk levels). Ensure all pages are mobile-responsive. Add loading states and empty states where appropriate."
-
-**Commit your work:**
-```bash
-git add -A
-git commit -m "Week 1: Foundation - layout, dashboard, hazard form, risk matrix, occurrences list"
-git push
-```
-
----
-
-## Week 2: Database & Real Data (Days 8-14)
-
-**Goal:** Replace mock data with a real database. Data persists between visits.
-
-### Day 8: Add a Database
-Tell Claude:
-> "Set up a SQLite database using Prisma ORM. Create models for: Hazard (id, title, description, dateObserved, location, category, severity, likelihood, riskLevel, status, isAnonymous, reportedBy, createdAt, updatedAt), User (id, name, email, role), and Investigation (id, hazardId, findings, rootCause, correctiveActions, status, assignedTo, dueDate). Run the migration."
-
-**What you'll learn:** Databases, schemas, migrations. Prisma makes it visual.
-
-### Day 9: Save Hazard Reports
-Tell Claude:
-> "Connect the hazard report form to the database. When the user submits the form, save it to the SQLite database via a Next.js API route. Show a success toast notification. The risk level should be auto-calculated from severity x likelihood before saving."
-
-**What you'll learn:** API routes, form submission, database writes.
-
-### Day 10: Load Real Data
-Tell Claude:
-> "Update the Occurrences page to load data from the database instead of mock data. The filters should work as query parameters. Add pagination - 20 items per page. Add a click handler so clicking a row opens the detail page."
-
-**What you'll learn:** Data fetching, pagination, dynamic routing.
-
-### Day 11: Detail Page
-Tell Claude:
-> "Create a detail page for each hazard/occurrence at /occurrences/[id]. Show all the hazard info, the risk matrix visualization, and an investigation section below. The investigation section should show existing investigation notes and have a form to add new notes. Include a status change dropdown (Open, Under Investigation, Corrective Action, Closed)."
-
-**What you'll learn:** Dynamic routes, related data, status workflows.
-
-### Day 12: User & Auth (Simple)
-Tell Claude:
-> "Add simple authentication. Create a login page with email and password. Create a users table with seed data for: Safety Manager (admin), Accountable Executive (admin), and 3 regular staff users. Store the logged-in user in a cookie/session. Show the user's name in the header. Protect all pages except login behind authentication."
-
-**What you'll learn:** Authentication basics, sessions, protected routes.
-
-### Day 13: Role-Based Access
-Tell Claude:
-> "Add role-based permissions. Roles: admin (Safety Manager, Accountable Executive) and staff. Staff can report hazards and view occurrences. Admins can also assign investigations, change statuses, close occurrences, and see the admin dashboard. Hide UI elements the user doesn't have permission for."
-
-**What you'll learn:** Authorization, role-based UI, middleware.
-
-### Day 14: Dashboard with Real Data
-Tell Claude:
-> "Update the Dashboard to show real data from the database. The stat cards should show actual counts. Add a bar chart showing hazards by category (last 30 days) and a trend line showing reports over time (last 12 months). Use a charting library like recharts."
+### Day 7: All Reports Page & Polish
+> "Create All Reports page - a filterable table of all reports. Columns: Date, Description (truncated), Category, Risk Level (colored badge), Status, Assigned To. Filters for status, category, risk level, date range. Then review all pages - fix visual inconsistencies, ensure mobile responsive."
 
 **Commit:**
 ```bash
-git add -A
-git commit -m "Week 2: Database, auth, real data, role-based access, charts"
-git push
+git add -A && git commit -m "Week 1: App shell, dashboard, freeform reporting, risk matrix" && git push
 ```
 
 ---
 
-## Week 3: Core SMS Features (Days 15-21)
+## Week 2: Database + AI Ingestion (Days 8-14)
 
-**Goal:** Build the features that make this a real Safety Management System.
+**Goal:** Data persists. AI reads freeform text and structures it.
 
-### Day 15: Investigation Workflow
-Tell Claude:
-> "Build a full investigation workflow. When an admin assigns an investigation, it creates an Investigation record linked to the hazard. The investigation has stages: Initial Assessment, Root Cause Analysis, Corrective Actions, Verification, Closure. Each stage has a form. Root Cause should support the '5 Whys' technique - let the user chain up to 5 why questions. Track who completed each stage and when."
+### Day 8: Database Setup
+> "Set up SQLite with Prisma ORM. Models: Report (id, rawText, title, description, dateOccurred, location, aircraft, category, severity, likelihood, riskLevel, status, isAnonymous, reportedBy, aiAnalysis JSON field, createdAt, updatedAt), User (id, name, email, role), AiAnalysis (hazardType, contributingFactors, suggestedSeverity, suggestedLikelihood, similarReports, confidence). Run the migration and seed 10 realistic aviation safety reports."
 
-### Day 16: Corrective Actions
-Tell Claude:
-> "Add a Corrective Actions system. Each investigation can have multiple corrective actions. Fields: description, assigned to (dropdown of users), due date, priority (High/Medium/Low), status (Open/In Progress/Completed/Overdue). Actions that pass their due date should automatically show as Overdue. Show overdue actions prominently on the dashboard with a red badge."
+### Day 9: Save Reports to Database
+> "Connect the report form to the database. When submitted, save the freeform text and any manual fields to SQLite via an API route. Update the All Reports page to read from the database. Add pagination."
 
-### Day 17: Risk Register
-Tell Claude:
-> "Create a Risk Register page. This is a master list of all identified risks, their current risk level, mitigations in place, and residual risk after mitigation. Include filters and a visual heat map showing the distribution of risks on the 5x5 matrix. Clicking a cell in the matrix should filter the list to show only risks at that level."
+### Day 10: AI Ingestion - The Magic
+This is the day the app gets its superpower.
 
-### Day 18: Safety Reporting & Metrics
-Tell Claude:
-> "Build a Safety Metrics page. Show: reports per month trend, average time to close, reports by category pie chart, risk level distribution, top 5 recurring hazard types, corrective action completion rate. Add date range filters. Make it look like an executive dashboard - this is what the Accountable Executive reviews monthly."
+> "Add AI ingestion using the Claude API (Anthropic SDK). When a report is submitted, send the freeform text to Claude with this system prompt: 'You are an aviation safety analyst. Extract structured data from this safety report. Return JSON with: title (short summary), description (cleaned up narrative), dateOccurred (if mentioned), location, aircraft (type and registration if mentioned), category (one of: Flight Ops, Ground Ops, Maintenance, ATC, Weather, Human Factors, Organizational, Security), severity (Negligible/Minor/Major/Hazardous/Catastrophic), likelihood (Extremely Improbable/Improbable/Remote/Occasional/Frequent), contributingFactors (array of strings), and confidence (0-1 how confident the AI is).' Show the AI's extraction to the user for review before saving. Pre-fill the manual form fields with the AI's suggestions."
 
-### Day 19: Document Management
-Tell Claude:
-> "Add a Documents section. Users can upload safety-related documents (PDFs, Word docs). Categories: Safety Policy, SOPs, Safety Bulletins, Meeting Minutes, Audit Reports. Show upload date, version, uploaded by. Support viewing document details and downloading. Store files locally for now."
+### Day 11: AI Review & Confirm Flow
+> "After AI ingestion, show a review screen: 'AI Analysis' card showing what the AI extracted, with each field editable. The risk matrix auto-highlights based on AI's severity/likelihood suggestion. Green checkmarks on fields the AI is confident about (>0.8), yellow question marks on uncertain ones. A 'Confirm & Submit' button saves the final version. A 'Reject AI Analysis' button lets the user fill it out manually."
 
-### Day 20: Email Notifications
-Tell Claude:
-> "Add email notifications using Resend (free tier). Send emails when: a new hazard is reported (to Safety Manager), an investigation is assigned (to assignee), a corrective action is due in 3 days (to assignee), a corrective action is overdue (to assignee + Safety Manager). Include a link to the relevant page in each email."
+### Day 12: Detail Page
+> "Create a detail page at /reports/[id]. Show: the original freeform text in a quote block, the structured data below, the risk matrix visualization for this report, and an AI Analysis section showing the AI's reasoning. Add a status workflow: Open > Under Review > Investigation > Corrective Action > Closed."
 
-### Day 21: Review & Test
-Tell Claude:
-> "Review the entire application. Test every workflow end-to-end: report a hazard, see it in the list, assign an investigation, go through all investigation stages, create corrective actions, close the investigation. Fix any bugs. Make sure all pages handle edge cases (empty states, long text, invalid input)."
+### Day 13: Simple Auth
+> "Add authentication with email/password. Seed users: Safety Manager (admin), Accountable Executive (admin), 3 staff. Session cookie. Show username in header. Protect all pages behind login."
+
+### Day 14: Real Dashboard
+> "Update Dashboard with real data from the database. Stat cards show actual counts. Add a bar chart of reports by category and a trend line of reports over time. The AI Safety Score should be calculated: start at 100, subtract points for open high-risk items, overdue actions, and trending-up hazard categories."
 
 **Commit:**
 ```bash
-git add -A
-git commit -m "Week 3: Investigation workflow, corrective actions, risk register, metrics, docs, notifications"
-git push
+git add -A && git commit -m "Week 2: Database, AI ingestion, review flow, auth, real dashboard" && git push
 ```
 
 ---
 
-## Week 4: Polish & Ship (Days 22-30)
+## Week 3: AI Diagnosis & Prognosis (Days 15-21)
 
-**Goal:** Make it production-ready and deploy it live.
+**Goal:** AI doesn't just ingest - it diagnoses root causes and predicts trends.
 
-### Day 22: Mobile Responsive
-Tell Claude:
-> "Go through every page and make sure it works perfectly on mobile (iPhone-sized screens). The sidebar should collapse to a hamburger menu. Tables should scroll horizontally or switch to card layout on small screens. Forms should be single-column on mobile."
+### Day 15: AI Diagnosis - Root Cause Analysis
+> "Add an AI Diagnosis feature. On each report's detail page, add a 'Request AI Diagnosis' button (admin only). When clicked, send the report data to Claude with this prompt: 'You are an aviation safety investigator. Analyze this safety report and provide: 1) Probable root cause categories (human factors, organizational, technical, environmental) with confidence levels, 2) Contributing factors using the Reason Model (active failures and latent conditions), 3) A '5 Whys' analysis starting from the immediate cause, 4) Recommended corrective actions ranked by effectiveness.' Display the AI's analysis in a structured, visual format below the report."
 
-### Day 23: Search
-Tell Claude:
-> "Add a global search bar in the header. Searching should find hazards, investigations, corrective actions, and documents by title, description, or ID. Show results grouped by type with quick links."
+### Day 16: Similar Event Matching
+> "When the AI diagnoses a report, also search the database for similar past reports. Send the current report + last 50 reports to Claude and ask: 'Which of these past reports are similar to the current one? Explain why. Are there patterns?' Show matched reports as clickable links with similarity scores and the AI's explanation of the pattern."
 
-### Day 24: Audit Log
-Tell Claude:
-> "Add an audit log that tracks every important action: who reported what, who changed a status, who assigned an investigation, who completed a corrective action. Show this on an Audit Log page (admin only) and also on each hazard's detail page as a timeline."
+### Day 17: AI Prognosis - Trend Detection
+> "Create the AI Insights page. Every time it loads, send the last 90 days of report data to Claude and ask: 'Analyze these safety reports for an aviation operator. Identify: 1) Trending hazard categories (increasing frequency), 2) Risk trajectory for each category, 3) Seasonal patterns, 4) Predictions for the next 30 days, 5) Recommended proactive actions. Format as an executive briefing.' Display the AI's analysis with charts where appropriate - trend lines for categories, predicted vs actual."
 
-### Day 25: Data Export
-Tell Claude:
-> "Add export functionality. Admins can export: all hazards to CSV, the risk register to CSV, safety metrics to PDF (a formatted report). Add export buttons on the relevant pages."
+### Day 18: Safety Alerts
+> "Add an AI-powered alert system. When a new report is submitted, check if the AI detects: 1) A pattern of similar reports (3+ in 30 days), 2) An escalating severity trend, 3) A report that matches a known accident precursor. If any trigger fires, show an alert banner on the dashboard and the report detail page. Color-code: yellow (pattern detected), orange (escalating), red (accident precursor match)."
 
-### Day 26: Settings & Configuration
-Tell Claude:
-> "Add a Settings page (admin only). Allow configuring: organization name and logo, hazard categories (add/edit/remove), risk matrix thresholds, notification preferences (which emails to send), user management (add/edit/deactivate users)."
+### Day 19: Corrective Action Tracking
+> "Add corrective actions. Each report can have multiple corrective actions. Fields: description, assigned to, due date, priority, status. AI suggests corrective actions during diagnosis - the admin can accept/modify/reject each suggestion. Track completion. Overdue actions show as red badges on dashboard."
 
-### Day 27: Deploy to Vercel
-Tell Claude:
-> "Help me deploy this to Vercel. Walk me through the steps: connecting the GitHub repo, setting environment variables, and getting it live on a custom domain. Switch the database to Vercel Postgres or PlanetScale for production."
+### Day 20: Investigation Workflow
+> "Build the investigation flow. Stages: Initial Assessment > Root Cause Analysis (5 Whys with AI assist) > Corrective Actions > Verification > Closure. Each stage has a form and tracks who completed it. The AI pre-fills each stage with suggestions based on the diagnosis."
 
-**This is when your app goes live on the internet.**
+### Day 21: End-to-End Test
+> "Test the full workflow: type a freeform safety report, AI ingests it, review and confirm, request AI diagnosis, review root cause analysis, see similar events, accept AI-suggested corrective actions, walk through investigation stages, close the report. Fix every bug."
 
-### Day 28: Testing with Real Users
-Share the URL with a few people. Have them:
-- Report a test hazard
-- Navigate around
+**Commit:**
+```bash
+git add -A && git commit -m "Week 3: AI diagnosis, similar events, prognosis, alerts, corrective actions" && git push
+```
+
+---
+
+## Week 4: Ship It (Days 22-28) + Bonus (Days 29-30)
+
+**Goal:** Deploy live. Make it real.
+
+### Day 22: Mobile
+> "Make every page work on iPhone screens. Sidebar becomes hamburger. Tables become cards. Forms go single-column."
+
+### Day 23: Search & Export
+> "Add global search (find reports by text, category, risk level). Add CSV export for all reports and corrective actions. Add a PDF executive summary export."
+
+### Day 24: Settings
+> "Admin settings page: organization name/logo, manage hazard categories, manage users, notification preferences."
+
+### Day 25: Deploy to Vercel
+> "Help me deploy to Vercel. Connect GitHub repo, set environment variables (Anthropic API key, database URL), get it live. Switch database to Vercel Postgres for production."
+
+**Your app is live on the internet.**
+
+### Day 26: User Testing
+Share the URL. Have 3-5 people:
+- Submit a freeform safety report
+- See the AI extraction
+- Look at the dashboard
 - Try it on their phone
-- Tell you what's confusing or broken
 
-Tell Claude about each piece of feedback and fix it.
+Feed every piece of feedback to Claude and fix it.
 
-### Day 29: Security Hardening
-Tell Claude:
-> "Review the app for security issues. Check for: SQL injection, XSS, CSRF, insecure direct object references, missing auth checks. Add rate limiting to the API routes. Make sure anonymous reports truly can't be traced back to the reporter. Add input validation on all forms."
+### Day 27: Security
+> "Security review: input validation, SQL injection protection, XSS prevention, auth checks on all API routes, rate limiting, anonymous reports truly untraceable."
 
-### Day 30: Documentation & Handoff
-Tell Claude:
-> "Generate user documentation: a Getting Started guide for new users, an Admin Guide for safety managers, and a Developer Guide for future maintenance. Create these as pages in the app at /help."
+### Day 28: Docs
+> "Create in-app help pages: Getting Started (for reporters), Admin Guide (for safety managers), and an About page explaining the AI features."
 
 **Final commit:**
 ```bash
-git add -A
-git commit -m "Week 4: Mobile, search, audit log, export, settings, deployment, security, docs"
-git push
+git add -A && git commit -m "Week 4: Mobile, search, export, deploy, security, docs" && git push
 ```
+
+### Day 29-30: Bonus - Voice Input
+> "Add a microphone button to the report form. When clicked, use the browser's Speech Recognition API to transcribe what the user says into the freeform text field. They can then click Submit and the AI processes it normally. This means a pilot can verbally describe a safety concern and the AI handles the rest."
 
 ---
 
 ## Vibe Coding Tips
 
-### How to Talk to Claude Code
-- **Be specific about what you want.** "Add a form" is vague. "Add a hazard report form with title, description, severity dropdown, and a submit button" is clear.
-- **Describe the outcome, not the implementation.** Say "when I click submit, save it to the database and show a success message" not "create a POST handler that..."
-- **Iterate.** Your first version won't be perfect. Say "the form looks good but make the severity dropdown use colors" or "the table is too cramped on mobile, switch to cards."
-- **Ask Claude to explain.** If you're curious, say "explain what this code does in simple terms." Understanding builds intuition.
+### Talking to Claude Code
+- **Be specific.** Not "add a form" but "add a text area where I describe a safety issue, and a Submit button that sends it to the AI for analysis."
+- **Describe outcomes.** "When I paste this text, the AI should extract the aircraft type, location, and what happened" not "create a POST endpoint."
+- **Iterate.** "That looks good but make the AI confidence scores visual - green/yellow/red dots."
+- **Ask why.** "Explain what this API route does" builds your intuition.
 
-### When Things Break
-1. Copy the error message
-2. Paste it to Claude and say "I'm getting this error"
-3. Claude will fix it
-4. If it's still broken, say "that didn't fix it, here's what I see now: [new error]"
+### When It Breaks
+1. Copy the error
+2. Paste to Claude: "Getting this error"
+3. Claude fixes it
+4. Still broken? "That didn't work, now I see: [new error]"
 
-### Git Basics (Your Safety Net)
+### Git (Your Undo Button)
 ```bash
-git status              # See what changed
-git add -A              # Stage all changes
-git commit -m "message" # Save a checkpoint
+git status              # What changed?
+git add -A              # Stage everything
+git commit -m "message" # Save checkpoint
 git push                # Upload to GitHub
-git log --oneline -5    # See recent checkpoints
+git stash               # Temporarily undo (if you broke something)
+git stash pop           # Bring changes back
 ```
 
-If you break something badly:
-```bash
-git stash              # Temporarily undo your changes
-# Check if the app works now
-git stash pop          # Bring your changes back
+### Claude Code Commands
 ```
-
-### Useful Claude Code Commands
-```
-claude                 # Start Claude Code in current directory
-/help                  # See all commands
-/clear                 # Clear conversation (start fresh)
+claude                 # Start Claude Code
+/help                  # All commands
+/clear                 # Fresh start
 ```
 
 ---
 
-## Aviation SMS Reference
-
-### ICAO Risk Matrix (5x5)
+## ICAO Risk Matrix (5x5)
 
 | | Negligible | Minor | Major | Hazardous | Catastrophic |
 |---|---|---|---|---|---|
-| **Frequent** | Medium | Serious | High | High | High |
-| **Occasional** | Low | Medium | Serious | High | High |
-| **Remote** | Low | Low | Medium | Serious | High |
-| **Improbable** | Low | Low | Low | Medium | Serious |
-| **Extremely Improbable** | Low | Low | Low | Low | Medium |
+| **Frequent** | 5-Medium | 10-Serious | 15-High | 20-High | 25-High |
+| **Occasional** | 4-Low | 8-Medium | 12-Serious | 16-High | 20-High |
+| **Remote** | 3-Low | 6-Low | 9-Medium | 12-Serious | 15-High |
+| **Improbable** | 2-Low | 4-Low | 6-Low | 8-Medium | 10-Serious |
+| **Ext. Improbable** | 1-Low | 2-Low | 3-Low | 4-Low | 5-Medium |
 
-### Key SMS Terms
-- **Hazard** - A condition or object with the potential to cause harm
-- **Risk** - The assessed potential for adverse consequences from a hazard (probability x severity)
-- **Occurrence** - An event associated with aircraft operations that affects or could affect safety
-- **Corrective Action** - An action to eliminate the cause of a detected nonconformity
-- **Accountable Executive** - The person with authority over finances and HR (usually CEO/President)
-- **Safety Manager** - The person responsible for administering the SMS day-to-day
+**Green** = Acceptable | **Yellow** = Tolerable w/ mitigation | **Orange** = Needs senior review | **Red** = Intolerable
 
-### Reporting Categories (Customize for Your Operation)
-- Flight Operations (crew, dispatch, fuel)
-- Ground Operations (ramp, de-icing, pushback)
-- Maintenance (aircraft, facilities, tools)
-- Air Traffic / NAV (communications, NOTAM, approaches)
-- Weather (forecasting, de-icing decision-making)
-- Security (access control, screening, threats)
-- Human Factors (fatigue, training, CRM)
-- Organizational (policies, procedures, resources)
+---
+
+## Key SMS Terms
+- **Hazard** - Condition with potential to cause harm
+- **Risk** - Probability x Severity of a hazard
+- **Occurrence** - Event affecting or potentially affecting safety
+- **Root Cause** - The underlying reason an event occurred
+- **Corrective Action** - Action to eliminate the cause
+- **Accountable Executive** - Person with authority over finances/HR (CEO)
+- **Safety Manager** - Person administering the SMS daily
+- **Reason Model** - Swiss cheese model of accident causation (active failures + latent conditions)
 
 ---
 
 ## Need Help?
 
-- **Claude Code docs:** https://docs.anthropic.com/en/docs/claude-code
-- **Next.js docs:** https://nextjs.org/docs
-- **Call Ben** - He set this up for you and can walk you through any of it
+- **Claude Code:** https://docs.anthropic.com/en/docs/claude-code
+- **Claude API:** https://docs.anthropic.com/en/docs/intro-to-claude
+- **Next.js:** https://nextjs.org/docs
+- **Call Ben** - He built the repo and can walk you through anything

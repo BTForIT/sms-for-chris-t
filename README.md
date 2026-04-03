@@ -1,35 +1,70 @@
 # SMS for Christ - Safety Management System
 
-A modern, web-based **Safety Management System (SMS)** built with AI-assisted "vibe coding" using [Claude Code](https://claude.ai/claude-code).
+An **AI-powered Safety Management System** for aviation operators. Built with vibe coding using [Claude Code](https://claude.ai/claude-code).
 
-## What is SMS?
+## The Problem
 
-A Safety Management System is required by ICAO (Annex 19) and Transport Canada (CAR 107) for aviation operators. It provides a structured approach to managing safety through:
+Aviation SMS tools today are glorified forms. People don't report because the forms are tedious. Safety managers spend hours manually categorizing reports. Nobody predicts what's coming next.
 
-### The 4 Pillars of SMS
-1. **Safety Policy & Objectives** - Management commitment, safety accountabilities, appointment of key personnel
-2. **Safety Risk Management** - Hazard identification, risk assessment & mitigation
-3. **Safety Assurance** - Safety performance monitoring, management of change, continuous improvement
-4. **Safety Promotion** - Training, education, and safety communication
+## The Solution: AI-First SMS
 
-## Features (Planned)
+### 1. AI Ingestion - Just Tell It What Happened
+Don't fill out 20 form fields. Just describe what happened in plain English, paste an email, or upload a voice memo transcript. The AI extracts everything:
+- What happened, when, where
+- Aircraft type, registration, flight number
+- People involved
+- Hazard category (Flight Ops, Maintenance, Ground Ops, Weather, Human Factors...)
+- Suggested severity and likelihood
+- Contributing factors
 
-- **Hazard Reporting** - Submit safety hazards and concerns (confidential/anonymous option)
-- **Occurrence Reporting** - Log safety occurrences, incidents, and accidents
-- **Risk Assessment Matrix** - 5x5 probability x severity matrix per ICAO standards
-- **Investigation Tracking** - Root cause analysis, corrective actions, follow-up
-- **Safety Dashboard** - KPIs, trends, open items, overdue actions
-- **Document Management** - Safety policies, procedures, bulletins
-- **Audit & Compliance** - Internal audit scheduling and findings tracking
-- **User Roles** - Accountable Executive, Safety Manager, Department Heads, All Staff
+The human reviews and confirms. Reporting drops from 10 minutes to 30 seconds.
+
+### 2. AI Diagnosis - What Caused This?
+For each report, the AI:
+- Suggests root cause categories (human factors, organizational, technical, environmental)
+- Identifies contributing factors using the Reason Model (Swiss cheese)
+- Runs the "5 Whys" analysis with AI-suggested follow-up questions
+- Flags similar past occurrences ("This looks like the de-icing incident from Nov 2025")
+- Recommends corrective actions based on what worked for similar issues
+
+### 3. AI Prognosis - What's Coming Next?
+Most SMS tools are backward-looking. This one predicts:
+- Trending hazard categories (e.g. "Ground handling incidents up 40% this quarter")
+- Risk trajectory ("This hazard type has escalated to incidents 3x in the past year")
+- Seasonal patterns ("Ice-related reports spike in November - proactive briefing recommended")
+- Overdue action warnings with impact assessment
+
+## Features
+
+### MVP (This is what we're building)
+- **Freeform Safety Reporting** - Describe it naturally, AI structures it
+- **AI-Powered Risk Assessment** - Auto-calculated 5x5 ICAO risk matrix
+- **Smart Diagnosis** - AI root cause analysis with similar-event matching
+- **Trend Detection** - AI prognosis dashboard with predictions
+- **Safety Dashboard** - KPIs, trends, open items for the Accountable Executive
+
+### Later
+- Investigation workflow with corrective action tracking
+- Document management (policies, SOPs, bulletins)
+- Audit & compliance scheduling
+- Email/SMS notifications
+- Role-based access (Accountable Executive, Safety Manager, Department Heads, Staff)
+- Transport Canada / ICAO compliance reporting
 
 ## Tech Stack
 
 - **Frontend:** Next.js 14 + Tailwind CSS
 - **Backend:** Next.js API Routes
-- **Database:** SQLite (dev) / PostgreSQL or Azure SQL (prod)
-- **Auth:** Simple email/password to start, Microsoft Entra ID later
+- **AI:** Claude API (Anthropic) for ingestion, diagnosis, and prognosis
+- **Database:** SQLite (dev) / PostgreSQL (prod)
 - **Hosting:** Vercel (free tier to start)
+
+## The 4 Pillars of SMS (ICAO Annex 19)
+
+1. **Safety Policy & Objectives** - Management commitment and accountability
+2. **Safety Risk Management** - Hazard identification, risk assessment & mitigation
+3. **Safety Assurance** - Performance monitoring, continuous improvement
+4. **Safety Promotion** - Training, education, safety communication
 
 ## Getting Started
 
@@ -38,13 +73,9 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Learning Path
 
-## Built With Vibe Coding
-
-This project is being built as a learning exercise using **vibe coding** with Claude Code - describe what you want in plain English and the AI writes the code.
-
-See [30-DAY-GUIDE.md](./30-DAY-GUIDE.md) for the complete learning path.
+See [30-DAY-GUIDE.md](./30-DAY-GUIDE.md) for the complete 30-day vibe coding guide.
 
 ## License
 
