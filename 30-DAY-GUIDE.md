@@ -29,8 +29,8 @@ claude --version  # Claude Code installed
 ### Clone This Repo
 ```bash
 cd ~/Desktop
-git clone https://github.com/BTForIT/sms-for-christ.git
-cd sms-for-christ
+git clone https://github.com/BTForIT/sms-for-chris-t.git
+cd sms-for-chris-t
 ```
 
 ---
@@ -43,7 +43,7 @@ cd sms-for-christ
 ```bash
 claude
 ```
-> "Create a Next.js 14 app with Tailwind CSS and TypeScript using the App Router. Professional aviation look - dark navy sidebar, clean white content area. Home page shows 'SMS for Christ - Safety Management System' with the tagline 'AI-Powered Safety Intelligence'."
+> "Create a Next.js 14 app with Tailwind CSS and TypeScript using the App Router. Professional aviation look - dark navy sidebar, clean white content area. Home page shows 'SMS for Chris T - Safety Management System' with the tagline 'AI-Powered Safety Intelligence'."
 
 Run `npm run dev` and open http://localhost:3000.
 

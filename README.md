@@ -1,4 +1,4 @@
-# SMS for Christ - Safety Management System
+# SMS for Chris T - Safety Management System
 
 An **AI-powered Safety Management System** for aviation operators. Built with vibe coding using [Claude Code](https://claude.ai/claude-code).
 
