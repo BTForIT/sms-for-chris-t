@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Category {
+  FlightOps
+  Maintenance
+  GroundOps
+  Weather
+  HumanFactors
+  Other
+}
+
+enum Severity {
+  Negligible
+  Minor
+  Major
+  Hazardous
+  Catastrophic
+}
+
+enum Likelihood {
+  ExtremelyImprobable
+  Improbable
+  Remote
+  Probable
+  Frequent
+}
+
+enum ReportStatus {
+  Open
+  UnderReview
+  Closed
+}
+
+enum ActionStatus {
+  Open
+  InProgress
+  Completed
+  Overdue
+}
+
+model Report {
+  id          String       @id @default(cuid())
+  rawText     String
+  title       String
+  description String
+  category    Category
+  severity    Severity
+  likelihood  Likelihood
+  status      ReportStatus @default(Open)
+  aiAnalysis  String       // JSON blob: extracted fields with confidence scores
+  isAnonymous Boolean      @default(false)
+  occurredAt  DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  diagnosis   Diagnosis?
+}
+
+model Diagnosis {
+  id               String             @id @default(cuid())
+  reportId         String             @unique
+  report           Report             @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  rootCauses       String             // JSON: root cause categories with explanations
+  fiveWhys         String             // JSON: 5 whys chain
+  similarEvents    String             // JSON: similar past occurrence descriptions
+  createdAt        DateTime           @default(now())
+
+  correctiveActions CorrectiveAction[]
+}
+
+model CorrectiveAction {
+  id          String       @id @default(cuid())
+  diagnosisId String
+  diagnosis   Diagnosis    @relation(fields: [diagnosisId], references: [id], onDelete: Cascade)
+  description String
+  status      ActionStatus @default(Open)
+  dueDate     DateTime?
+  assignee    String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
